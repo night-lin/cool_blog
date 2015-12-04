@@ -4,7 +4,7 @@
  * 
  * @package LoginLimit 
  * @author hongweipeng
- * @version 1.0.0
+ * @version 0.7.0
  * @link http://blog.west2online.com
  * @email hongweichen8888@sina.com
  */
