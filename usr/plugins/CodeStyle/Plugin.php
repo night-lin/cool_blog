@@ -17,7 +17,7 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      */
     public static function activate() {
          Typecho_Plugin::factory('Widget_Archive')->header = array(__CLASS__, 'header');
-         Typecho_Plugin::factory('Widget_Archive')->header = array(__CLASS__, 'footer');
+         Typecho_Plugin::factory('Widget_Archive')->footer = array(__CLASS__, 'footer');
     }
 
     /**
