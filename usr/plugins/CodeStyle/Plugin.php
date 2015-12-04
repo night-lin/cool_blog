@@ -46,7 +46,14 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      * @param Typecho_Widget_Helper_Form $form
      * @return void
      */
-    public static function personalConfig(Typecho_Widget_Helper_Form $form){}
+    public static function personalConfig(Typecho_Widget_Helper_Form $form){
+        //echo dirname(__FILE__) . '/markdown/styles/*.css';
+        $styles = array_map('basename', glob(dirname(__FILE__) . '/markdown/styles/*.css'));
+        $styles = array_combine($styles, $styles);
+        $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'default.css', _t('选择你的代码风格'));
+        $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
+
+    }
 
     /**
      * 插件实现方法
@@ -63,7 +70,7 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      *@return void
      */
     public static function header() {
-        $style = 'segmentfault.css';//暂时使用这个样式
+        $style = Helper::options()->personalPlugin('CodeStyle')->code_style;
         $cssUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/' . $style;
         echo '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '" />';
     }
