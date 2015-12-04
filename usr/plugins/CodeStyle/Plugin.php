@@ -70,13 +70,13 @@ HTML;
     public static function personalConfig(Typecho_Widget_Helper_Form $form){
         $styles = array_map('basename', glob(dirname(__FILE__) . '/markdown/styles/*.css'));
         $styles = array_combine($styles, $styles);
-        $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'default.css', _t('选择你的代码风格'));
+        $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'segmentfault.css', _t('选择你的代码风格'));
         $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
 
         $editor_mode = new Typecho_Widget_Helper_Form_Element_Radio('editor_mode', array(
             0   =>  _t('不'),
             1   =>  _t('是')
-        ), 0, _t('Markdown编辑器模式'), _t('是否将Markdown编辑器分成左右（还在写。。。）'));
+        ), 0, _t('Markdown编辑器左右模式'), _t('是否将Markdown编辑器分成左右（还在写。。。）'));
         $form->addInput($editor_mode->addRule('enum', _t('必须选择一个模式'), array(0, 1)));
     }
 
