@@ -1,20 +1,13 @@
 <?php
-include 'common.php';
-include 'header.php';
-include 'menu.php';
+include_once 'common.php';
+include_once 'header.php';
+include_once 'menu.php';
 ?>
 
 <div class="main">
     <div class="body container">
         <?php include 'page-title.php'; ?>
         <div class="row typecho-page-main manage-metas">
-                <div class="col-mb-12">
-                    <ul class="typecho-option-tabs clearfix">
-                        <li class="current"><a href="<?php $options->adminUrl('extending.php?panel=Links%2Fmanage-links.php'); ?>"><?php _e('友情链接'); ?></a></li>
-						<li><a href=<?php $options->index('/action/links-edit?do=addhanny'); ?> title="如果你喜欢，可以点击快速添加寒泥的博客。"><?php _e('添加寒泥'); ?></a></li>
-                        <li><a href="http://www.imhan.com/archives/typecho-links/" title="查看友情链接使用帮助" target="_blank"><?php _e('帮助'); ?></a></li>
-                    </ul>
-                </div>
 
                 <div class="col-mb-12 col-tb-12" role="main">                  
                     <?php
@@ -36,6 +29,7 @@ include 'menu.php';
                                     <li><a lang="<?php _e('你确认要删除这些链接吗?'); ?>" href="<?php $options->index('/action/links-edit?do=delete'); ?>"><?php _e('删除'); ?></a></li>
                                 </ul>
                             </div>
+                            <label><a href="#"><?php _e('清空数据表'); ?></a></label>
                         </div>
                     </div>
 
@@ -75,7 +69,7 @@ include 'menu.php';
                                 <?php endif; ?>
                             </tbody>
                         </table>
-                        
+
                     </div>
                     </form>
 				</div>

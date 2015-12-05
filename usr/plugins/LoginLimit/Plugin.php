@@ -56,7 +56,7 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      *@return void
      */
     public static function loginSucceed() {
-        self::destoryLoginSession();
+        
     }
     /**
      *用户登录失败
