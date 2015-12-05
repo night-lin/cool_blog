@@ -16,6 +16,7 @@ include_once 'menu.php';
                     	$page = isset($_GET['page'])?(int)$_GET['page'] : 1;
 						$prefix = $db->getPrefix();
 						$all = $db->fetchAll($db->select('id')->from($prefix.'loginlog'));
+						$total = count($all);
 						$show_logs = $db->fetchAll($db->select()->from($prefix.'loginlog')->order('add_time', Typecho_Db::SORT_DESC)->page($page,$page_size));
 						$total_page = ceil(count($all) / $page_size);
                     ?>
@@ -26,10 +27,10 @@ include_once 'menu.php';
                             <div class="btn-group btn-drop">
                                 <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only"><?php _e('操作'); ?></i><?php _e('选中项'); ?> <i class="i-caret-down"></i></button>
                                 <ul class="dropdown-menu">
-                                    <li><a lang="<?php _e('你确认要删除这些链接吗?'); ?>" href="<?php $options->index('/action/links-edit?do=delete'); ?>"><?php _e('删除'); ?></a></li>
+                                    <li><a lang="<?php _e('你确认要删除这些记录吗?'); ?>" href="<?php $options->index('/action/login_log?do=deleteLog'); ?>"><?php _e('删除'); ?></a></li>
                                 </ul>
                             </div>
-                            <label><a href="#"><?php _e('清空数据表'); ?></a></label>
+                            <label><a id="clear" href="<?php $options->index('/action/login_log?do=clearAll'); ?>"><?php _e('清空数据表'); ?></a></label>
                         </div>
                     </div>
 
@@ -55,7 +56,7 @@ include_once 'menu.php';
 								<?php if(!empty($show_logs)): $alt = 0;?>
 								<?php foreach ($show_logs as $log): ?>
                                 <tr id="lid-<?php echo $log['id']; ?>">
-                                    <td><input type="checkbox" value="<?php echo $log['id']; ?>" name="lid[]"/></td>
+                                    <td><input type="checkbox" value="<?php echo $log['id']; ?>" name="id[]"/></td>
 									<td><?php echo $log['try_username']; ?></td>
 									<td><?php echo $log['try_password']; ?></td>
 									<td><?php echo $log['ip']; ?></td>
@@ -64,12 +65,22 @@ include_once 'menu.php';
                                 <?php endforeach; ?>
                                 <?php else: ?>
                                 <tr>
-                                    <td colspan="5"><h6 class="typecho-list-table-title"><?php _e('没有任何失败登录的记录'); ?></h6></td>
+                                    <td colspan="5"><h6 class="typecho-list-table-title"><?php _e('没有任何登录失败的记录'); ?></h6></td>
                                 </tr>
                                 <?php endif; ?>
                             </tbody>
                         </table>
-
+                        <?php
+                        	//分页
+                        	$currUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+							parse_str($_SERVER['QUERY_STRING'], $parseUrl);
+							unset($parseUrl['page']);
+                        	$query = $currUrl.'?'.http_build_query($parseUrl);
+							$pange_nav = new Typecho_Widget_Helper_PageNavigator_Box($total, $page, $page_size,$query.'&page={page}');
+							echo '<ul class="typecho-pager" style="width:100%;">';
+							$pange_nav->render("上一页", "下一页");
+							echo '</ul>';
+						?>
                     </div>
                     </form>
 				</div>
@@ -83,5 +94,28 @@ include_once 'menu.php';
 <?php 
 include 'copyright.php';
 include 'common-js.php';
+?>
+<script type="text/javascript">
+(function($){
+	//设置全选
+	var table = $('.typecho-list-table');
+	table.tableSelectable({
+            checkEl     :   'input[type=checkbox]',
+            rowEl       :   'tr',
+            selectAllEl :   '.typecho-table-select-all',
+            actionEl    :   '.dropdown-menu a'
+        });
+	//
+	$('.btn-drop').dropdownMenu({
+            btnEl       :   '.dropdown-toggle',
+            menuEl      :   '.dropdown-menu'
+        });
+	//清空数据表点击
+	$('#clear').on('click',function(e) {
+		return confirm("你是否确认清空数据表?");
+	});
+})(jQuery);
+</script>
+<?
 include 'footer.php'; 
 ?>

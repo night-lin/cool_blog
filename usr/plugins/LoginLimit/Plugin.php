@@ -4,13 +4,13 @@
  * 
  * @package LoginLimit 
  * @author hongweipeng
- * @version 0.7.0
+ * @version 0.9.0
  * @link http://blog.west2online.com
  * @email hongweichen8888@sina.com
  */
 class LoginLimit_Plugin implements Typecho_Plugin_Interface {
 
-    public static $allowTime = 0;
+    public static $halfCount = 0;//到访问时间前半小时内登录失败的次数
      /**
      * 激活插件方法,如果激活失败,直接抛出异常
      * 
@@ -22,8 +22,8 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
         $info = self::login_log_install();
         //插件注册
         Helper::addPanel(3, 'LoginLimit/manage_log.php', '登录日志', '管理登录失败日志', 'administrator');
+        Helper::addAction('login_log', 'LoginLimit_Action');
         Typecho_Plugin::factory('Widget_User')->login = array(__CLASS__, 'dologin');
-        Typecho_Plugin::factory('Widget_User')->loginSucceed = array(__CLASS__, 'loginSucceed');
         Typecho_Plugin::factory('Widget_Login')->loginFail = array(__CLASS__, 'loginFail');
     }
     
@@ -40,8 +40,8 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
         $prefix = $db->getPrefix();//获取表前缀
 
         $select = $db->fetchAll( $db->select('id','add_time')->from($prefix.'loginlog')->where('add_time > ?', $halfhour)->order('add_time', Typecho_Db::SORT_ASC) );
-
         $limit = self::getLimitCount();
+        self::$halfCount = count($select);
         if(count($select) >= $limit) {
             //尝试次数超过允许的设置次数
             $mins = ceil( ($select[0]['add_time'] + 1800 - $time) / 60 );
@@ -51,13 +51,6 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
         Typecho_Widget::widget('Widget_Login')->login($name, $password, $temporarily, $expire);
     }
     
-    /**
-     *用户登录成功
-     *@return void
-     */
-    public static function loginSucceed() {
-        
-    }
     /**
      *用户登录失败
      *@return void
@@ -73,7 +66,7 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
             'add_time'      => $_SERVER['REQUEST_TIME']
             );
         $db->query($db->insert($prefix.'loginlog')->rows($data));
-        self::showErrorMsg('无效的账号密码，您还可以尝试'.(self::getLimitCount() - $_SESSION['try_count']).'次');
+        self::showErrorMsg('无效的账号密码，您还可以尝试'.(self::getLimitCount() - self::$halfCount - 1).'次');
     }
 
     /**
@@ -104,6 +97,12 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      */
     public static function deactivate(){
         Helper::removePanel(3, 'LoginLimit/manage_log.php');
+        Helper::removeAction('login_log');
+        //删除登录记录的表格
+        $db = Typecho_Db::get();
+        $prefix = $db->getPrefix();
+        $sql = "drop table ".$prefix.'loginlog';
+        $db->query($sql);
     }
 
     /**
