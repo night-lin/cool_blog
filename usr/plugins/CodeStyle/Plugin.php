@@ -18,27 +18,15 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
     public static function activate() {
         Typecho_Plugin::factory('Widget_Archive')->header = array(__CLASS__, 'header');
         Typecho_Plugin::factory('Widget_Archive')->footer = array(__CLASS__, 'footer');
-        Typecho_Plugin::factory('admin/write-post.php')->bottom = array(__CLASS__, 'editor_mode');
-        Typecho_Plugin::factory('admin/write-page.php')->bottom = array(__CLASS__, 'editor_mode');
+        Typecho_Plugin::factory('admin/write-post.php')->bottom = array(__CLASS__, 'editor_show_style');
+        Typecho_Plugin::factory('admin/write-page.php')->bottom = array(__CLASS__, 'editor_show_style');
     }
     /**
      *实现编辑器左右分
      *@return void
      */
-    public static function editor_mode() {
-        die("33");
-        $potions = Helper::options()->personalPlugin('CodeStyle');
-        $mode = $potions->editor_mode;
-        $style = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/'.$potions->code_style;
-        $lrcss = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/lr.css';
-        if($mode == 1) {
-            //如果开启了左右模式
-            $html = <<<HTML
-            <link rel="stylesheet" type="text/css" href="{$style}" />
-            <link rel="stylesheet" type="text/css" href="{$lrcss}" />
-HTML;
-        die($mode);
-        }
+    public static function editor_show_style() {
+        
     }
 
     /**

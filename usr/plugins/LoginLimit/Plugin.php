@@ -10,6 +10,7 @@
  */
 class LoginLimit_Plugin implements Typecho_Plugin_Interface {
 
+    public static $allowTime = 0;
      /**
      * 激活插件方法,如果激活失败,直接抛出异常
      * 
@@ -18,7 +19,9 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      * @throws Typecho_Plugin_Exception
      */
     public static function activate() {
+        $info = self::login_log_install();
         //插件注册
+        Helper::addPanel(3, 'LoginLimit/manage_log.php', '登录日志', '管理登录失败日志', 'administrator');
         Typecho_Plugin::factory('Widget_User')->login = array(__CLASS__, 'dologin');
         Typecho_Plugin::factory('Widget_User')->loginSucceed = array(__CLASS__, 'loginSucceed');
         Typecho_Plugin::factory('Widget_Login')->loginFail = array(__CLASS__, 'loginFail');
@@ -29,19 +32,19 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      *@return void
      */
     public static function dologin($name, $password, $temporarily, $expire) {
-        @session_start();//typecho不默认开启seesion
+
         $time = $_SERVER['REQUEST_TIME'];
-        if(!isset($_SESSION['login_start'])) {
-            //如果不存在
-            self::setLoginSession();
-        }else if($time - $_SESSION['login_start'] > 1800){
-            self::setLoginSession();
-        }
+        $halfhour = $time - 1800;//半小时前
+
+        $db = Typecho_Db::get();
+        $prefix = $db->getPrefix();//获取表前缀
+
+        $select = $db->fetchAll( $db->select('id','add_time')->from($prefix.'loginlog')->where('add_time > ?', $halfhour)->order('add_time', Typecho_Db::SORT_ASC) );
 
         $limit = self::getLimitCount();
-        if($_SESSION['try_count'] >= $limit) {
+        if(count($select) >= $limit) {
             //尝试次数超过允许的设置次数
-            $mins = ceil( ($_SESSION['login_start'] + 1800 - $time) / 60 );
+            $mins = ceil( ($select[0]['add_time'] + 1800 - $time) / 60 );
             self::showErrorMsg('尝试次数超过允许的设置次数,请'.$mins.'分钟后再试');
         }
         
@@ -59,29 +62,20 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      *用户登录失败
      *@return void
      */
-    public static function loginFail() {
+    public static function loginFail($user, $name, $password, $temporarily, $expire) {
         $_SESSION['try_count']++;
+        $db = Typecho_Db::get();
+        $prefix = $db->getPrefix();//获取表前缀
+        $data = array(
+            'try_username' => $name,
+            'try_password' => $password,
+            'ip'            => isset($_SERVER["REMOTE_ADDR"])?$_SERVER["REMOTE_ADDR"]:'unknown',
+            'add_time'      => $_SERVER['REQUEST_TIME']
+            );
+        $db->query($db->insert($prefix.'loginlog')->rows($data));
         self::showErrorMsg('无效的账号密码，您还可以尝试'.(self::getLimitCount() - $_SESSION['try_count']).'次');
     }
-    /**
-     *创建本插件设置的session
-     *@return void
-     */
-    public static function setLoginSession() {
-        $_SESSION['login_start'] = $_SERVER['REQUEST_TIME'];//开始尝试登录的时间
-        $_SESSION['try_count']   = 0;//已经尝试了n次
-    }
-    /**
-     *销毁本插件设置的session
-     *@return void
-     */
-    public static function destoryLoginSession() {
-        @session_start();
-        if(isset($_SESSION['login_start'])) {
-            unset($_SESSION['login_start']);
-            unset($_SESSION['try_count']);
-        }
-    }
+
     /**
      *显示错误信息并跳回登录界面
      *@return void
@@ -109,7 +103,7 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      * @throws Typecho_Plugin_Exception
      */
     public static function deactivate(){
-        self::destoryLoginSession();
+        Helper::removePanel(3, 'LoginLimit/manage_log.php');
     }
 
     /**
@@ -134,7 +128,25 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
      * @return void
      */
     public static function personalConfig(Typecho_Widget_Helper_Form $form){}
-
+    /**
+     *初始化数据库
+     */
+    public static function login_log_install() {
+        $installDb = Typecho_Db::get();
+        $prefix = $installDb->getPrefix();//获取表前缀
+        $script = file_get_contents('usr/plugins/LoginLimit/typecho_loginlog.sql');
+        $script = trim(str_replace('typecho_', $prefix, $script));
+        try {
+            if($script) {
+                $installDb->query($script, Typecho_Db::WRITE);
+            }
+            return '建立登录失败数据表，插件启用成功';
+        } catch(Typecho_Db_Exception $e) {
+            $code = $e->getCode();
+            throw new Typecho_Plugin_Exception('数据表建立失败，插件启用失败。错误号：'.$code);
+        }
+        return '';
+    }
     /**
      * 插件实现方法
      * 
