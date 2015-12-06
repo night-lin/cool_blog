@@ -12,7 +12,7 @@ include_once 'menu.php';
                 <div class="col-mb-12 col-tb-12" role="main">                  
                     <?php
                     	date_default_timezone_set('PRC');//设置中国时区
-                    	$page_size = 3;
+                    	$page_size = 20;
                     	$page = isset($_GET['page'])?(int)$_GET['page'] : 1;
 						$prefix = $db->getPrefix();
 						$all = $db->fetchAll($db->select('id')->from($prefix.'loginlog'));

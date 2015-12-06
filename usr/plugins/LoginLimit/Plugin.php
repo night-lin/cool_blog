@@ -103,7 +103,7 @@ class LoginLimit_Plugin implements Typecho_Plugin_Interface {
         $prefix = $db->getPrefix();
         try {
             $sql = "drop table ".$prefix.'loginlog';
-            //$db->query($sql);
+            $db->query($sql);
         } catch (Typecho_Db_Exception $e) {
             throw new Typecho_Plugin_Exception('删除登录数据表失败');
         }
