@@ -57,9 +57,9 @@ include_once 'menu.php';
 								<?php foreach ($show_logs as $log): ?>
                                 <tr id="lid-<?php echo $log['id']; ?>">
                                     <td><input type="checkbox" value="<?php echo $log['id']; ?>" name="id[]"/></td>
-									<td><?php echo htmlspecialchars($log['try_username']); ?></td>
-									<td><?php echo htmlspecialchars($log['try_password']); ?></td>
-									<td><?php echo $log['ip']; ?></td>
+									<td><?php echo htmlspecialchars($log['try_username'], ENT_QUOTES); ?></td>
+									<td><?php echo htmlspecialchars($log['try_password'], ENT_QUOTES); ?></td>
+									<td><?php echo htmlspecialchars($log['ip'], ENT_QUOTES); ?></td>
 									<td><?php echo date('Y-m-d H:i:s', $log['add_time']);?></td>
                                 </tr>
                                 <?php endforeach; ?>
