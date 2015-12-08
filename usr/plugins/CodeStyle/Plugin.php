@@ -4,7 +4,7 @@
  * 
  * @package CodeStyle 
  * @author hongweipeng
- * @version 0.5.1
+ * @version 0.6.1
  * @link http://blog.west2online.com
  */
 class CodeStyle_Plugin implements Typecho_Plugin_Interface {
@@ -18,15 +18,6 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
     public static function activate() {
         Typecho_Plugin::factory('Widget_Archive')->header = array(__CLASS__, 'header');
         Typecho_Plugin::factory('Widget_Archive')->footer = array(__CLASS__, 'footer');
-        Typecho_Plugin::factory('admin/write-post.php')->bottom = array(__CLASS__, 'editor_show_style');
-        Typecho_Plugin::factory('admin/write-page.php')->bottom = array(__CLASS__, 'editor_show_style');
-    }
-    /**
-     *实现编辑器左右分
-     *@return void
-     */
-    public static function editor_show_style() {
-        
     }
 
     /**
@@ -46,7 +37,12 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      * @param Typecho_Widget_Helper_Form $form 配置面板
      * @return void
      */
-    public static function config(Typecho_Widget_Helper_Form $form){}
+    public static function config(Typecho_Widget_Helper_Form $form){
+        $styles = array_map('basename', glob(dirname(__FILE__) . '/markdown/styles/*.css'));
+        $styles = array_combine($styles, $styles);
+        $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'segmentfault.css', _t('选择你的代码风格'));
+        $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
+    }
 
     /**
      * 个人用户的配置面板
@@ -55,18 +51,7 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      * @param Typecho_Widget_Helper_Form $form
      * @return void
      */
-    public static function personalConfig(Typecho_Widget_Helper_Form $form){
-        $styles = array_map('basename', glob(dirname(__FILE__) . '/markdown/styles/*.css'));
-        $styles = array_combine($styles, $styles);
-        $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'segmentfault.css', _t('选择你的代码风格'));
-        $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
-
-        $editor_mode = new Typecho_Widget_Helper_Form_Element_Radio('editor_mode', array(
-            0   =>  _t('不'),
-            1   =>  _t('是')
-        ), 0, _t('Markdown编辑器左右模式'), _t('是否将Markdown编辑器分成左右（还在写。。。）'));
-        $form->addInput($editor_mode->addRule('enum', _t('必须选择一个模式'), array(0, 1)));
-    }
+    public static function personalConfig(Typecho_Widget_Helper_Form $form){}
 
     /**
      * 插件实现方法
@@ -83,7 +68,7 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      *@return void
      */
     public static function header() {
-        $style = Helper::options()->personalPlugin('CodeStyle')->code_style;
+        $style = Helper::options()->plugin('CodeStyle')->code_style;
         $cssUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/' . $style;
         echo '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '" />';
         echo <<<HTML
