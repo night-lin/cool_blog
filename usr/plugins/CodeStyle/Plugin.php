@@ -38,10 +38,18 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      * @return void
      */
     public static function config(Typecho_Widget_Helper_Form $form){
+        //设置代码风格样式
         $styles = array_map('basename', glob(dirname(__FILE__) . '/markdown/styles/*.css'));
         $styles = array_combine($styles, $styles);
         $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'segmentfault.css', _t('选择你的代码风格'));
         $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
+
+        //是否显示行号
+        $showline = new Typecho_Widget_Helper_Form_Element_Radio('ifshowline', array(
+            0   =>  _t('不显示'),
+            1   =>  _t('显示')
+        ), 0, _t('显示行号'), _t('显示行号可能存在错位，还在调整中。。。'));
+        $form->addInput($showline->addRule('enum', _t('必须选择一个模式'), array(0, 1)));
     }
 
     /**
@@ -71,43 +79,9 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         $style = Helper::options()->plugin('CodeStyle')->code_style;
         $cssUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/' . $style;
         echo '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '" />';
-        echo <<<HTML
-        <style>
-pre {
-    position: relative;
-    margin-bottom: 24px;
-    border-radius: 3px;
-    border: 1px solid #C3CCD0;
-    background: #FFF;
-    overflow: hidden;
-}
-
-code {
-
-}
-
-code.has-numbering {
-    margin-left: 21px;
-}
-
-.pre-numbering {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20px;
-    padding: 0.5em 2px 12px 0;
-    border-right: 1px solid #C3CCD0;
-    border-radius: 3px 0 0 3px;
-    background-color: #EEE;
-    text-align: right;
-    font-family: Menlo, monospace;
-    font-size: 0.92857em;
-    color: #AAA;
-    margin-top: 0px;
-    list-style:none;
-}
-</style>
-HTML;
+        if(Helper::options()->plugin('CodeStyle')->ifshowline != 0) {
+            echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl.'/CodeStyle/showline.css" />';
+        }
     }
 
     /**
@@ -121,20 +95,10 @@ HTML;
             <script type="text/javascript" src="{$jsUrl}"></script>
             <script type="text/javascript">
                 hljs.initHighlightingOnLoad();
-            $(function(){
-            $('pre code').each(function(){
-                var lines = $(this).text().split('\\n').length - 1;
-                var numbering = $('<ul/>').addClass('pre-numbering');
-                $(this)
-                    .addClass('has-numbering')
-                    .parent()
-                    .append(numbering);
-                for(i=1;i<=lines;i++){
-                    numbering.append($('<li/>').text(i));
-                }
-            });
-        });
             </script>
 HTML;
+        if(Helper::options()->plugin('CodeStyle')->ifshowline != 0) {
+            echo '<script type="text/javascript" src="'.Helper::options()->pluginUrl.'/CodeStyle/showline.js"></script>';
+        }
     }
 }
