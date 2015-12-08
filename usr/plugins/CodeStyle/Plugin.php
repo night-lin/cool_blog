@@ -86,6 +86,43 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         $style = Helper::options()->personalPlugin('CodeStyle')->code_style;
         $cssUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/' . $style;
         echo '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '" />';
+        echo <<<HTML
+        <style>
+pre {
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 3px;
+    border: 1px solid #C3CCD0;
+    background: #FFF;
+    overflow: hidden;
+}
+
+code {
+
+}
+
+code.has-numbering {
+    margin-left: 21px;
+}
+
+.pre-numbering {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    padding: 0.5em 2px 12px 0;
+    border-right: 1px solid #C3CCD0;
+    border-radius: 3px 0 0 3px;
+    background-color: #EEE;
+    text-align: right;
+    font-family: Menlo, monospace;
+    font-size: 0.92857em;
+    color: #AAA;
+    margin-top: 0px;
+    list-style:none;
+}
+</style>
+HTML;
     }
 
     /**
@@ -95,9 +132,23 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
     public static function footer() {
         $jsUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlight.pack.js';
         echo <<<HTML
+            <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
             <script type="text/javascript" src="{$jsUrl}"></script>
             <script type="text/javascript">
                 hljs.initHighlightingOnLoad();
+            $(function(){
+            $('pre code').each(function(){
+                var lines = $(this).text().split('\\n').length - 1;
+                var numbering = $('<ul/>').addClass('pre-numbering');
+                $(this)
+                    .addClass('has-numbering')
+                    .parent()
+                    .append(numbering);
+                for(i=1;i<=lines;i++){
+                    numbering.append($('<li/>').text(i));
+                }
+            });
+        });
             </script>
 HTML;
     }
