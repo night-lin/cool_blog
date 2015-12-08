@@ -5,7 +5,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * 
  * @package EditorLR 
  * @author hongweipeng
- * @version 0.0.1
+ * @version 0.3.1
  * @link http://blog.west2online.com
  */
 class EditorLR_Plugin implements Typecho_Plugin_Interface
