@@ -60,24 +60,12 @@ class EditorLR_Plugin implements Typecho_Plugin_Interface
         $options        = Helper::options();
         $cssUrl         = Typecho_Common::url('EditorLR/lr.css', $options->pluginUrl);
         $jsUrl          = Typecho_Common::url('EditorLR/prettify.js', $options->pluginUrl);
+        $lrjs          = Typecho_Common::url('EditorLR/lr.js', $options->pluginUrl);
 
         echo <<<HTML
             <link rel="stylesheet" type="text/css" href="{$cssUrl}" />
             <script type="text/javascript" src="{$jsUrl}"></script>
-            <script>
-                function prettify() {
-                    $("pre").addClass("prettyprint");
-                    prettyPrint();
-                }
-                $(function() {
-                    /*Show wmd-preview DOM*/
-                    $('.wmd-edittab').remove();
-                    $('#wmd-preview').removeClass('wmd-hidetab');
-                    setInterval("$('#wmd-preview').css('height', (parseInt($('#text').height()) - 5)+'px');", 500);
-                    setInterval("prettify()", 500);
-                });
-
-            </script>
+            <script type="text/javascript" src="{$lrjs}"></script>
 HTML;
     }
 }
