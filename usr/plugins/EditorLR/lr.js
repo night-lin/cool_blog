@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     $('.wmd-edittab').remove();
     wmd_preview.removeClass('wmd-hidetab');
-    
+
     textArea.resize(function() {
         if(is_process)
             return;
@@ -104,7 +104,7 @@ $(document).ready(function(){
 
         textArea.animate({width:left + '%'}, 200);
         if(typeof right == 'string') {
-            wmd_preview.animate({width:($('#wmd-editarea').width()/ $(window).width()) * 100 + '%'}, 200);
+            wmd_preview.animate({width:(($('#wmd-editarea').width() - 15)/ $(window).width()) * 100 + '%'}, 200);
         } else {
             wmd_preview.animate({width:right + '%'}, 200);
         }
