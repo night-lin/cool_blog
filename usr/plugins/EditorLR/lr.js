@@ -59,7 +59,7 @@ $(document).ready(function(){
     div.append(edit_mode).append(both_mode).append(show_mode);
     $('#wmd-button-bar').prepend(div);
     function obj_show(obj) {
-        obj.removeClass('lr-edit-hide').addClass('lr-edit-show');
+        obj.removeClass('lr-edit-hide').addClass('lr-edit-show').show();
     }
     function obj_hide(obj) {
         obj.removeClass('lr-edit-show').addClass('lr-edit-hide');
