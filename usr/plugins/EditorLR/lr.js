@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     $('.wmd-edittab').remove();
     wmd_preview.removeClass('wmd-hidetab');
-    var textArea_width = textArea.width();
+    
     textArea.resize(function() {
         if(is_process)
             return;
@@ -58,12 +58,7 @@ $(document).ready(function(){
     var show_mode = $('<a href="javascript:void(0);">浏览</a>');
     div.append(edit_mode).append(both_mode).append(show_mode);
     $('#wmd-button-bar').prepend(div);
-    function obj_show(obj) {
-        obj.removeClass('lr-edit-hide').addClass('lr-edit-show').show();
-    }
-    function obj_hide(obj) {
-        obj.removeClass('lr-edit-show').addClass('lr-edit-hide');
-    }
+
     //编辑器模式 0 编辑模式 1 实时模式 2 预览模式
     function edit_change(_m) {
         mode = _m;
@@ -96,18 +91,15 @@ $(document).ready(function(){
         $('.wmd-editlrtab a').removeClass("active");
         
         if(left < 15) {
-            if($('body').hasClass('fullscreen')) {
-                obj_hide(textArea);
-            }else {
-                textArea.hide();
-            }
+            textArea.css('visibility','hidden');
         } else {
-            obj_show(textArea);
+            textArea.css('visibility','visible');
         }
+
         if(right < 15) {
-            obj_hide(wmd_preview);
+            wmd_preview.css('visibility','hidden');
         }else {
-            obj_show(wmd_preview);
+            wmd_preview.css('visibility','visible');
         }
 
         textArea.animate({width:left + '%'}, 200);

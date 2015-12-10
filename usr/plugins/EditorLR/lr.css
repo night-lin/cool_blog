@@ -9,12 +9,6 @@ form div[role="main"], form div[role="complementary"]{
 #text, #wmd-preview {
 	width: 47%;
 }
-.lr-eidt-show {
-  display: inline-block;
-}
-.lr-edit-hide {
-  display: none !important;
-}
 
 #wmd-preview {
 	position:absolute;
