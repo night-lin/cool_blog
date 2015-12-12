@@ -44,12 +44,6 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'segmentfault.css', _t('选择你的代码风格'));
         $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
 
-        //是否显示行号
-        $showline = new Typecho_Widget_Helper_Form_Element_Radio('ifshowline', array(
-            0   =>  _t('不显示'),
-            1   =>  _t('显示')
-        ), 0, _t('显示行号'), _t('显示行号可能存在错位，还在调整中。。。'));
-        $form->addInput($showline->addRule('enum', _t('必须选择一个模式'), array(0, 1)));
     }
 
     /**
@@ -79,9 +73,6 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         $style = Helper::options()->plugin('CodeStyle')->code_style;
         $cssUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/styles/' . $style;
         echo '<link rel="stylesheet" type="text/css" href="' . $cssUrl . '" />';
-        if(Helper::options()->plugin('CodeStyle')->ifshowline != 0) {
-            echo '<link rel="stylesheet" type="text/css" href="' . Helper::options()->pluginUrl.'/CodeStyle/showline.css" />';
-        }
     }
 
     /**
@@ -97,8 +88,5 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
                 hljs.initHighlightingOnLoad();
             </script>
 HTML;
-        if(Helper::options()->plugin('CodeStyle')->ifshowline != 0) {
-            echo '<script type="text/javascript" src="'.Helper::options()->pluginUrl.'/CodeStyle/showline.js"></script>';
-        }
     }
 }
