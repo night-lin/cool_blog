@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="http://cdn.staticfile.org/normalize/2.1.3/normalize.min.css">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('grid.css'); ?>">
     <link rel="stylesheet" href="<?php $this->options->themeUrl('style.css'); ?>">
-
+    <link rel="shortcut icon" type="image/x-icon" href="<?php $this->options->themeUrl('favicon.ico'); ?>" />
     <!--[if lt IE 9]>
     <script src="http://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="http://cdn.staticfile.org/respond.js/1.3.0/respond.min.js"></script>
