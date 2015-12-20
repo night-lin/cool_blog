@@ -82,7 +82,7 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
     public static function footer() {
         $jsUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlight.pack.js';
         echo <<<HTML
-            <script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+            <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
             <script type="text/javascript" src="{$jsUrl}"></script>
             <script type="text/javascript">
                 hljs.initHighlightingOnLoad();
