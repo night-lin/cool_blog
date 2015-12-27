@@ -39,6 +39,15 @@
 	</section>
     <?php endif; ?>
 
+    <?php if(class_exists('Links_Plugin') && isset($this->options->plugins['activated']['Links'])): ?>
+    <section class="widget">
+        <h3 class="widget-title"><?php _e('友情链接'); ?></h3>
+        <ul class="widget-list">
+            <?php Links_Plugin::output(); ?>
+        </ul>
+    </section>
+    <?php endif; ?>
+
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowOther', $this->options->sidebarBlock)): ?>
 	<section class="widget">
 		<h3 class="widget-title"><?php _e('其它'); ?></h3>
@@ -51,7 +60,7 @@
             <?php endif; ?>
             <li><a href="<?php $this->options->feedUrl(); ?>"><?php _e('文章 RSS'); ?></a></li>
             <li><a href="<?php $this->options->commentsFeedUrl(); ?>"><?php _e('评论 RSS'); ?></a></li>
-            <li><a href="http://www.typecho.org">Typecho</a></li>
+            <li><a href="http://www.typecho.org" target="_blank">Typecho</a></li>
         </ul>
 	</section>
     <?php endif; ?>
