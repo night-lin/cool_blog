@@ -45,7 +45,7 @@ class GithubWidgetUser_Plugin implements Typecho_Plugin_Interface
         $jq_import = new Typecho_Widget_Helper_Form_Element_Radio('jq_import', array(
             0   =>  _t('不引入'),
             1   =>  _t('引入')
-        ), 0, _t('是否引入jQuery'), _t('此插件需要jQuery，如已有选择不引入避免引入多余jQuery'));
+        ), 1, _t('是否引入jQuery'), _t('此插件需要jQuery，如已有选择不引入避免引入多余jQuery'));
         $form->addInput($jq_import->addRule('enum', _t('必须选择一个模式'), array(0, 1)));
     }
     
