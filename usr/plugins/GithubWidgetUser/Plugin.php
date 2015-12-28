@@ -5,7 +5,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
  * 
  * @package GithubWidgetUser 
  * @author hongweipeng
- * @version 0.1.0
+ * @version 0.2.0
  * @link https://www.hongweipeng.com
  */
 class GithubWidgetUser_Plugin implements Typecho_Plugin_Interface
