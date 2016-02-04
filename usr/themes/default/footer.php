@@ -23,14 +23,9 @@ var duoshuoQuery = {short_name:"hongweipeng"};
 	</script>
 <!-- 多说公共JS代码 end -->
 <!--   百度统计 start -->
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?fb82a04cc28d2e2a378835c0caecfa3e";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ffb82a04cc28d2e2a378835c0caecfa3e' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <!-- 百度统计 end -->
 
