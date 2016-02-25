@@ -13,7 +13,12 @@
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentComments', $this->options->sidebarBlock)): ?>
     <section class="widget">
 		<h3 class="widget-title"><?php _e('最近回复'); ?></h3>
-        <ul class="ds-recent-comments widget-list" data-num-items="10" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="1" data-excerpt-length="70"></ul>
+        <ul class="widget-list">
+        <?php $this->widget('Widget_Comments_Recent')->to($comments); ?>
+        <?php while($comments->next()): ?>
+            <li><a href="<?php $comments->permalink(); ?>"><?php $comments->author(false); ?></a>: <?php $comments->excerpt(35, '...'); ?></li>
+        <?php endwhile; ?>
+        </ul>
     </section>
     <?php endif; ?>
 
