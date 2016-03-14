@@ -15,7 +15,7 @@
             <span class="day"><?php $this->date('d'); ?></span>
         </span>
         <p class="title"><?php $this->title() ?></p>
-        <p class="article-meta">本文由 <?php $this->author(); ?> <?php $this->date('发表于 Y 年 m 月 d 日'); ?></p>
+        <p class="article-meta">本文由 <a itemprop="name" href="<?php $this->author->permalink(); ?>" rel="author"><?php $this->author(); ?> </a><?php $this->date('发表于 Y 年 m 月 d 日'); ?></p>
         <div class="article-content">
             <?php $this->content(); ?>
         </div>

@@ -22,7 +22,7 @@ $(document).ready(function($) {
     $.scrollto("#back-to-top", 800);
  
     // 新窗口打开链接
-    $(".post a").attr("target", "_blank");
+    //$(".post a").attr("target", "_blank");
 
     // Ctrl + Enter 提交回复
     $('#comment-content').keydown(function(event) { 

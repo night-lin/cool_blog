@@ -3,7 +3,7 @@
     <section class="block">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label"><?php _e('最新文章'); ?></p>
         <div class="list">
-            <?php $this->widget('Widget_Contents_Post_Recent')->parse('<a href="{permalink}" class="item" target="_blank">{title}</a>'); ?>
+            <?php $this->widget('Widget_Contents_Post_Recent')->parse('<a href="{permalink}" class="item">{title}</a>'); ?>
         </div>
     </section>
     <?php endif; ?>
@@ -28,7 +28,7 @@
     <section class="block">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label"><?php _e('分类'); ?></p>
         <div class="animated list category">
-            <?php $this->widget('Widget_Metas_Category_List')->parse('<div class="item"><a href="{permalink}" target="_blank">{name}</a> <div class="ui label">{count}</div></div>'); ?>
+            <?php $this->widget('Widget_Metas_Category_List')->parse('<div class="item"><a href="{permalink}">{name}</a> <div class="ui label">{count}</div></div>'); ?>
         </div>
     </section>
     <?php endif; ?>
@@ -37,7 +37,7 @@
     <section class="block">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label"><?php _e('归档'); ?></p>
         <div class="animated list">
-            <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=Y 年 m 月')->parse('<a href="{permalink}" class="item" target="_blank">{date}</a>'); ?>
+            <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=Y 年 m 月')->parse('<a href="{permalink}" class="item">{date}</a>'); ?>
         </div>
     </section>
     <?php endif; ?>

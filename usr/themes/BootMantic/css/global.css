@@ -15,9 +15,6 @@ body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, div, span, img, footer {
     margin: 0px;
     cursor: default;
 
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
 }
 body {
     background: #e5e5e5 url(../images/background.png);
@@ -28,9 +25,6 @@ a {
     color: #333;
     text-decoration: none;
 
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
 
     transition: 500ms;
     -o-transition: 500ms;
@@ -45,9 +39,6 @@ img {
     max-width: 100%;
     border-radius: 5px;
 
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -webkit-user-drag: none;
 
     transition: 500ms;
     -o-transition: 500ms;
