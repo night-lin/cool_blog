@@ -7,7 +7,7 @@
     <div class="ds-thread" data-thread-key="<?php echo $this->cid;?>" data-title="<?php echo $this->title;?>" data-author-key="<?php echo $this->authorId;?>" data-url=""></div>
 <!-- 多说评论框 end -->
     </div>
-</div>
+
 <?php else: ?>
 
 <div class="block">
@@ -15,3 +15,4 @@
 </div>
 
 <?php endif; ?>
+</div>
