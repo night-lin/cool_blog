@@ -204,6 +204,15 @@
     border-bottom-right-radius: 5px;
 }
 
+.post-near {
+    list-style:none;
+    padding:0;
+    color:#999;
+}
+.post-near li {
+    margin:10px 0;
+}
+
 /* 评论列表之后的分页列表无box-shadow */
 .block .comment-list + .page-navigator {
     box-shadow: none;
