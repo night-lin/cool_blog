@@ -26,6 +26,9 @@
     }
 }
 
+.article-content {
+    line-height: 1.25em;
+}
 
 /* block */
 
@@ -192,7 +195,7 @@
 
 .page-navigator li {
     display: inline-block;
-    padding: 10px;
+    /*padding: 10px;*/
     background: #fff;
 }
 .page-navigator li:first-child {
@@ -202,6 +205,14 @@
 .page-navigator li:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+.page-navigator li a,.page-navigator li span{
+    display: inline-block;
+    padding: 10px;
+}
+
+.page-navigator .current, .page-navigator a:hover {
+    background: #eee none repeat scroll 0 0;
 }
 
 .post-near {

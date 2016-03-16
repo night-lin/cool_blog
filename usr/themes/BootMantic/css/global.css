@@ -13,7 +13,7 @@
  *********************/
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, div, span, img, footer {
     margin: 0px;
-    cursor: default;
+    /*cursor: default;*/
 
 }
 body {
@@ -103,6 +103,8 @@ pre, code {
     border: 1px solid #ddd;
     padding: 2px 5px;
     font-family: Consolas, 'Liberation Mono', Courier, monospace;
+    font-size: 1em;
+    line-height: 1.25;
 }
 pre {
     padding: 10px;
