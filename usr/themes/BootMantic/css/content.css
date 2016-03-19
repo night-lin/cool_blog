@@ -290,3 +290,26 @@
 .side .category.list .item .label {
     float: right;
 }
+
+
+/* 文章版权 */
+.copyright {
+    font-size: 15px;
+}
+
+.copyright .alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+.copyright a {
+    color: green;
+    font-weight: 700;
+}
+.copyright a:hover {
+    text-decoration: underline;
+    text-shadow: none;
+}
