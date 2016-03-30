@@ -29,8 +29,8 @@ var duoshuoQuery = {short_name:"hongweipeng"};
     })();
 </script>
 <!-- 多说公共JS代码 end -->
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <?php $this->footer(); ?>
-<script src="<?php $this->options->adminUrl('js/jquery.js'); ?>"></script>
 <script src="<?php $this->options->themeUrl('js/script.js'); ?>"></script>
     </body>
 </html>
