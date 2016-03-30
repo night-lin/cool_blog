@@ -27,10 +27,27 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
     }
 
     public static function run($archive, $select) {
+    	$db = Typecho_Db::get();
+		$prefix = $db->getPrefix();
         $options = Helper::options();
-        $options->theme = 'default';
-        $themeDir = rtrim($options->themeFile($options->theme), '/') . '/';
-        $archive->setThemeDir($themeDir);
+        $host = $_SERVER['HTTP_HOST'];
+        $row = $db->fetchRow($db->select()->from($prefix.'domaintheme')->where('domain = ?', $host)->limit(1));
+        if($row) {
+        	$options->theme = $row['theme'];
+        	$themeDir = rtrim($options->themeFile($options->theme), '/') . '/';
+
+        	$archive->setThemeDir($themeDir);
+        	if($row['user']) {
+        		$themeOptions = json_decode($row['user'], true);
+        		
+        		if(is_array($themeOptions)) {
+        			foreach ($themeOptions as $key => $value) {
+        				$options->push(array('name'=>$key, 'value'=>$value));
+        			}
+        		}
+        	}
+        }
+        
     }
     
     /**
@@ -84,28 +101,6 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
         return '插件启用成功';
 	}
 	
-	public static function linksUpdate($installDb, $type, $prefix)
-	{
-		$scripts = file_get_contents('usr/plugins/Links/Update_'.$type.'.sql');
-		$scripts = str_replace('typecho_', $prefix, $scripts);
-		$scripts = str_replace('%charset%', 'utf8', $scripts);
-		$scripts = explode(';', $scripts);
-		try {
-			foreach ($scripts as $script) {
-				$script = trim($script);
-				if ($script) {
-					$installDb->query($script, Typecho_Db::WRITE);
-				}
-			}
-			return '检测到旧版本友情链接数据表，升级成功';
-		} catch (Typecho_Db_Exception $e) {
-			$code = $e->getCode();
-			if(('Mysql' == $type && 1060 == $code) ) {
-				return '友情链接数据表已经存在，插件启用成功';
-			}
-			throw new Typecho_Plugin_Exception('友情链接插件启用失败。错误号：'.$code);
-		}
-	}
 
 	public static function form($action = NULL)
 	{
@@ -154,11 +149,11 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
             }
             
             $name->value($link['name']);
-            $url->value($link['url']);
+            $url->value($link['domain']);
             $theme->value($link['theme']);
             $user->value($link['user']);
             $do->value('update');
-            $lid->value($link['id']);
+            $id->value($link['id']);
             $submit->value(_t('编辑链接'));
             $_action = 'update';
         } else {
@@ -175,20 +170,20 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
         if ('insert' == $action || 'update' == $action) {
 			$name->addRule('required', _t('必须填写链接名称'));
 			$url->addRule('required', _t('必须填写链接地址'));
-			$url->addRule('domain', _t('不是一个合法的链接地址'));
+			//$url->addRule('domain', _t('不是一个合法的链接地址'));
         }
         if ('update' == $action) {
-            $lid->addRule('required', _t('链接主键不存在'));
-            //$lid->addRule(array(new Links_Plugin, 'LinkExists'), _t('链接不存在'));
+            $id->addRule('required', _t('链接主键不存在'));
+            //$id->addRule(array(new DomainTheme_Plugin, 'idExists'), _t('链接不存在'));
         }
         return $form;
 	}
 
-	public static function LinkExists($lid)
+	public static function idExists($id)
 	{
 		$db = Typecho_Db::get();
 		$prefix = $db->getPrefix();
-		$link = $db->fetchRow($db->select()->from($prefix.'links')->where('lid = ?', $lid)->limit(1));
+		$link = $db->fetchRow($db->select()->from($prefix.'links')->where('id = ?', $lid)->limit(1));
 		return $link ? true : false;
 	}
 
