@@ -123,7 +123,7 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
 		
 		
 		/** 自定义数据 */
-		$user = new Typecho_Widget_Helper_Form_Element_Textarea('user', NULL, NULL, _t('自定义数据'), _t('该项用于用户自定义数据扩展'));
+		$user = new Typecho_Widget_Helper_Form_Element_Textarea('user', NULL, NULL, _t('自定义数据'), _t('该项用于用户自定义数据扩展(json格式)'));
 		$form->addInput($user);
 		
 		/** 链接动作 */
@@ -168,27 +168,15 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
 
         /** 给表单增加规则 */
         if ('insert' == $action || 'update' == $action) {
-			$name->addRule('required', _t('必须填写链接名称'));
-			$url->addRule('required', _t('必须填写链接地址'));
-			//$url->addRule('domain', _t('不是一个合法的链接地址'));
+			$name->addRule('required', _t('必须填写名称'));
+			$url->addRule('required', _t('必须填写域名地址'));
+            $theme->addRule('required', _t('必须填写模板名称'));
         }
         if ('update' == $action) {
             $id->addRule('required', _t('链接主键不存在'));
-            //$id->addRule(array(new DomainTheme_Plugin, 'idExists'), _t('链接不存在'));
         }
         return $form;
 	}
-
-	public static function idExists($id)
-	{
-		$db = Typecho_Db::get();
-		$prefix = $db->getPrefix();
-		$link = $db->fetchRow($db->select()->from($prefix.'links')->where('id = ?', $lid)->limit(1));
-		return $link ? true : false;
-	}
-
-	
-
 
 
 }

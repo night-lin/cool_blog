@@ -22,12 +22,11 @@ class DomainTheme_Action extends Typecho_Widget implements Widget_Interface_Do
 	{
 		$this->checkLogin();
 		if (DomainTheme_Plugin::form('insert')->validate()) {
-			//$this->response->goBack();
+			$this->response->goBack();
 		}
 		/** 取出数据 */
 		$link = $this->request->from('name', 'domain', 'theme', 'user');
 
-		//$link['order'] = $this->db->fetchObject($this->db->select(array('MAX(order)' => 'maxOrder'))->from($this->prefix.'domaintheme'))->maxOrder + 1;
 
 		/** 插入数据 */
 		$link['id'] = $this->db->query($this->db->insert($this->prefix.'domaintheme')->rows($link));
