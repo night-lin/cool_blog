@@ -30,10 +30,10 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
     	$db = Typecho_Db::get();
 		$prefix = $db->getPrefix();
         $options = Helper::options();
-        $host = $_SERVER['HTTP_HOST'];
-        $row = $db->fetchRow($db->select()->from($prefix.'domaintheme')->where('domain = ?', $host)->limit(1));
+        $domain = $_SERVER['HTTP_HOST'];
+        $row = $db->fetchRow($db->select()->from($prefix.'domaintheme')->where('domain = ?', $domain)->limit(1));
         if($row) {
-        	$options->theme = $row['theme'];
+        	$options->theme = is_dir($options->themeFile($row['theme'])) ? $row['theme'] : 'default';;
         	$themeDir = rtrim($options->themeFile($options->theme), '/') . '/';
 
         	$archive->setThemeDir($themeDir);
