@@ -8,12 +8,6 @@ include 'menu.php';
     <div class="body container">
         <?php include 'page-title.php'; ?>
         <div class="row typecho-page-main manage-metas">
-                <div class="col-mb-12">
-                    <ul class="typecho-option-tabs clearfix">
-                        <li class="current"><a href="<?php $options->adminUrl('extending.php?panel=domaintheme%2Fmanage-domaintheme.php'); ?>"><?php _e('友情链接'); ?></a></li>
-                        <li><a href="#" title="查看友情链接使用帮助" target="_blank"><?php _e('帮助'); ?></a></li>
-                    </ul>
-                </div>
 
                 <div class="col-mb-12 col-tb-8" role="main">                  
                     <?php

@@ -118,7 +118,9 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
 		$form->addInput($url);
 		
 		/** 主题 */
-		$theme = new Typecho_Widget_Helper_Form_Element_Text('theme', NULL, NULL, _t('主题名称'), _t('模板名称'));
+        $themes = array_map('basename', glob(__TYPECHO_ROOT_DIR__ . __TYPECHO_THEME_DIR__ . '/*'));
+        $themes = array_combine($themes, $themes);
+		$theme = new Typecho_Widget_Helper_Form_Element_Select('theme', $themes, 'default', _t('主题名称'), _t('模板名称'));
 		$form->addInput($theme);
 		
 		
