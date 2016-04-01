@@ -205,7 +205,7 @@ class MenuTree_Plugin implements Typecho_Plugin_Interface {
             echo '<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>';
         }
 
-        $html = '<div class="in-page-preview-buttons in-page-preview-buttons-full-reader"><ul><li title="内容目录 Ctrl+Alt+O"id="preview-toc-button"class="in-page-button dropdown"><span data-toggle="dropdown"class="dropdown-toggle icon-list"style="color: rgba(102, 128, 153, 0.45);">+</span><div class="dropdown-menu theme pull-right theme-white"id="toc-list"><h3>内容目录</h3><hr><div class="table-of-contents"><div class="toc"><ul><li>'. self::buildMenuHtml( self::$tree ) .'</li></ul></div></div></div></li></ul></div>';
+        $html = '<div class="in-page-preview-buttons in-page-preview-buttons-full-reader"><ul><li title="内容目录 Ctrl+Alt+O"id="preview-toc-button"class="in-page-button dropdown"><svg data-toggle="dropdown"class="dropdown-toggle icon-list" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22 22" style="enable-background:new 0 0 22 22;" xml:space="preserve"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M22,0L0,7.5l11,3.459L14.5,22L22,0z M2.512,7.534L20.5,1.5l-6,17.5 l-2.75-8.75L2.512,7.534z"/></svg><div class="dropdown-menu theme pull-right theme-white"id="toc-list"><h3>内容目录</h3><hr><div class="table-of-contents"><div class="toc"><ul><li>'. self::buildMenuHtml( self::$tree ) .'</li></ul></div></div></div></li></ul></div>';
         $js = Helper::options()->pluginUrl . '/MenuTree/dropdown.js';
         echo <<<HTML
             <script src="{$js}"></script>

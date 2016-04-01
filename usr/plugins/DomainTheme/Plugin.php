@@ -156,11 +156,11 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
             $user->value($link['user']);
             $do->value('update');
             $id->value($link['id']);
-            $submit->value(_t('编辑链接'));
+            $submit->value(_t('编辑'));
             $_action = 'update';
         } else {
             $do->value('insert');
-            $submit->value(_t('增加链接'));
+            $submit->value(_t('增加'));
             $_action = 'insert';
         }
         
