@@ -100,15 +100,13 @@ img.avatar {
 pre, code {
     border-radius: 5px;
     color: #DE3859;
-    border: 1px solid #ddd;
     padding: 2px 5px;
     font-family: Consolas, 'Liberation Mono', Courier, monospace;
     font-size: 1em;
     line-height: 1.25;
 }
 pre {
-    padding: 10px;
-    border-left: 4px solid #de3859;
+    padding: 0;
     overflow: auto;
     white-space: pre-wrap;
     max-height: 400px;
