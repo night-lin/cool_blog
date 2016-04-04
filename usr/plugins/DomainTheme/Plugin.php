@@ -4,7 +4,7 @@
  * 
  * @package DomainTheme
  * @author hongweipeng
- * @version 0.0.1
+ * @version 0.8.1
  * @link https://www.hongweipeng.com
  *
  */
@@ -64,6 +64,16 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
 	{
 		Helper::removeAction('DomainTheme-edit');
 		Helper::removePanel(1, 'DomainTheme/manage-domaintheme.php');
+        //删除登录记录的表格
+        $db = Typecho_Db::get();
+        $prefix = $db->getPrefix();
+        try {
+            $sql = "drop table ".$prefix.'domaintheme';
+            $db->query($sql);
+        } catch (Typecho_Db_Exception $e) {
+            throw new Typecho_Plugin_Exception('删除登录数据表失败');
+        }
+        return true;
 	}
     
     /**
