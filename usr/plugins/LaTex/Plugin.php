@@ -78,7 +78,7 @@ class LaTex_Plugin implements Typecho_Plugin_Interface
         <script type="text/javascript">
             setInterval(function() {
                 latex.parse("{$mark}");
-            }, 500);
+            }, 50);
         </script>
 HTML;
         echo $html;
