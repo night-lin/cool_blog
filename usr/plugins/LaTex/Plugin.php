@@ -3,7 +3,7 @@
  * LaTex 公式解析
  * 
  * @package LaTex
- * @author mutoo
+ * @author mutoo hongweipeng(改)
  * @version 1.1.0
  * @link http://blog.mutoo.im/LaTex.html
  */
@@ -19,6 +19,8 @@ class LaTex_Plugin implements Typecho_Plugin_Interface
     public static function activate()
     {
         Typecho_Plugin::factory('Widget_Archive')->footer = array('LaTex_Plugin', 'footer');
+        Typecho_Plugin::factory('admin/write-post.php')->bottom = array(__CLASS__, 'render');
+        Typecho_Plugin::factory('admin/write-page.php')->bottom = array(__CLASS__, 'render');
     }
     
     /**
@@ -65,5 +67,20 @@ class LaTex_Plugin implements Typecho_Plugin_Interface
         echo '<script type="text/javascript" src="'. $jsUrl .'"></script>';
         $mark = Typecho_Widget::widget('Widget_Options')->plugin('LaTex')->mark;
         echo '<script type="text/javascript">latex.parse("'. $mark. '");</script>';
+    }
+
+    public static function render() {
+        $jsUrl = Helper::options()->pluginUrl . '/LaTex/latex.js';
+        echo '<script type="text/javascript" src="'. $jsUrl .'"></script>';
+        $mark = Typecho_Widget::widget('Widget_Options')->plugin('LaTex')->mark;
+        //echo '<script type="text/javascript">setTimeout(function(){latex.parse("'. $mark. '");alert("333");},400);</script>';
+        $html = <<<HTML
+        <script type="text/javascript">
+            setInterval(function() {
+                latex.parse("{$mark}");
+            }, 500);
+        </script>
+HTML;
+        echo $html;
     }
 }
