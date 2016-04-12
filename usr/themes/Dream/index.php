@@ -28,7 +28,7 @@ if (!defined('__TYPECHO_ROOT_DIR__')) exit;
 			<div class="page-section" id="about">
 			<div class="row">
 				<div class="col-md-12">
-					<h4 class="widget-title"><a href="<?php $this->permalink() ?>" target="_blank"><?php $this->title() ?></a></h4>
+					<h4 class="widget-title"><a href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h4>
 					<p><?php $this->content('阅读全文 >>'); ?></p>
 					<hr>
 				</div>
