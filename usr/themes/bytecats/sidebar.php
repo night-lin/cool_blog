@@ -63,13 +63,14 @@
     </section>
     <!-- 只在首页显示 -->
     <?php if($this->is('index')): ?>
+        <?php if(class_exists('Links_Plugin') && isset($this->options->plugins['activated']['Links'])): ?>
         <section class="widget">
-            <h3>友情链接</h3>
-            <ul class="widget-list flinks">
-                <li><a href="http://www.bytecats.com" target="_blank">字节猫</a></li>
-                <li><a href="http://wp.bytecats.com" target="_blank">wordpress企业模板</a></li>
+            <h3 class="widget-title"><?php _e('友情链接'); ?></h3>
+            <ul class="widget-list">
+                <?php Links_Plugin::output(); ?>
             </ul>
         </section>
+        <?php endif; ?>
     <?php else: ?>
     <?php endif; ?>
 
