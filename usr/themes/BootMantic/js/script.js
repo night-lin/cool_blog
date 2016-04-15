@@ -68,4 +68,23 @@ $(document).ready(function($) {
         });
         return false;
     });
+
+    //边栏固定
+    var $sidebar = $("#fixed"),
+        $fixside = $('.fixsidebar'),
+     $window = $(window),
+     offset = $sidebar.offset(),
+     widths=$sidebar.width();
+     if($window.width() > 768){
+        $window.scroll(function() {
+        if ($window.scrollTop() > offset.top) {
+                var widths=$sidebar.width();
+                $fixside.addClass('fix').css("width",widths);
+                $fixside.stop().animate({top:'70px'});
+            } else {
+                $fixside.stop().animate({top:'-400px'});
+            $fixside.removeClass('fix');
+            }    
+        });    
+    }
 });

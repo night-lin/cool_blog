@@ -163,3 +163,10 @@ footer a:hover {
 .zocial:before {
     border: none;
 }
+
+.fixsidebar {
+    top:-400px
+}
+.fixsidebar.fix {
+    position:fixed
+}

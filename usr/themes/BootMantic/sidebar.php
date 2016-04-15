@@ -11,24 +11,27 @@
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentComments', $this->options->sidebarBlock)): ?>
     <section class="block">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label"><?php _e('最近回复'); ?></p>
-        <div class="list ds-recent-comments widget-list" data-num-items="10" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="1" data-excerpt-length="70"></div>
+        <div class="list ds-recent-comments widget-list" data-num-items="6" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="1" data-excerpt-length="70"></div>
     </section>
     <?php endif; ?>
 
-    <?php if (!empty($this->options->sidebarBlock) && in_array('ShowFriend', $this->options->sidebarBlock)): ?>
-    <section class="block friend-list">
-        <p class="ui <?php $this->options->labelColor() ?> ribbon label">友情链接</p>
-        <div class="animated list friend">
-            <?php Links_Plugin::output("<a class=\"item\" href=\"{url}\" title=\"{title}\" target=\"_blank\"><img class=\"avatar image\" src=\"{image}\" alt=\"{name}\" /><div class=\"content\"><p class=\"header\">{name}</p><p>{description}</p></div></a>\n", 10); ?>
-        </div>
-    </section>
-    <?php endif; ?>
-
+    
+    
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowCategory', $this->options->sidebarBlock)): ?>
     <section class="block">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label"><?php _e('分类'); ?></p>
         <div class="animated list category">
             <?php $this->widget('Widget_Metas_Category_List')->parse('<div class="item"><a href="{permalink}">{name}</a> <div class="ui label">{count}</div></div>'); ?>
+        </div>
+    </section>
+    <?php endif; ?>
+
+    <div class="fixsidebar"> 
+    <?php if (!empty($this->options->sidebarBlock) && in_array('ShowFriend', $this->options->sidebarBlock)): ?>
+    <section class="block friend-list">
+        <p class="ui <?php $this->options->labelColor() ?> ribbon label">友情链接</p>
+        <div class="animated list friend">
+            <?php Links_Plugin::output("<a class=\"item\" href=\"{url}\" title=\"{title}\" target=\"_blank\"><img class=\"avatar image\" src=\"{image}\" alt=\"{name}\" /><div class=\"content\"><p class=\"header\">{name}</p><p>{description}</p></div></a>\n", 10); ?>
         </div>
     </section>
     <?php endif; ?>
@@ -58,4 +61,6 @@
         </div>
     </section>
     <?php endif; ?>
+    </div>
+    <div id="fixed"></div>
 </div>
