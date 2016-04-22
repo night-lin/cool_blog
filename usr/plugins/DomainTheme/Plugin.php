@@ -39,6 +39,7 @@ class DomainTheme_Plugin implements Typecho_Plugin_Interface
         	$themeDir = rtrim($options->themeFile($options->theme), '/') . '/';
 
         	$archive->setThemeDir($themeDir);
+            $options->siteUrl = (Typecho_Request::isSecure() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'];
         	if($row['user']) {
         		$themeOptions = json_decode($row['user'], true);
         		
