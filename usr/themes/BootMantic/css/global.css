@@ -131,6 +131,11 @@ blockquote p {
     padding: 0.5em 0;
 }
 
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 /* footer 部分 */
 
 footer {
