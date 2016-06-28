@@ -261,7 +261,7 @@ class CommonMark_HyperDown
             }
         }, $text);
 
-        $text = str_replace(['<', '>'], ['&lt;', '&gt;'], $text);
+        //$text = str_replace(['<', '>'], ['&lt;', '&gt;'], $text);
 
         // footnote
         $text = preg_replace_callback("/\[\^((?:[^\]]|\\]|\\[)+?)\]/", function ($matches) {

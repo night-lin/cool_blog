@@ -57,7 +57,10 @@ class Markdown
 
         $doc = $docParser->parse($text);
         return $renderer->render($doc);*/
-        $parse = new CommonMark_HyperDown();
+        static $parse;
+        if(empty($parse)) {
+            $parse = new CommonMark_HyperDown();
+        }
         return $parse->makeHtml($text);
     }
 }
