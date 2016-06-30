@@ -257,7 +257,8 @@ class CommonMark_HyperDown
             if (stripos('|' . $this->_commonWhiteList . '|' . $whiteList . '|', '|' . $matches[2] . '|') !== false) {
                 return $this->makeHolder($matches[0]);
             } else {
-                return htmlspecialchars($matches[0]);
+                //return htmlspecialchars($matches[0]);
+                return $matches[0];
             }
         }, $text);
 
