@@ -72,7 +72,7 @@ include_once 'menu.php';
                         </table>
                         <?php
                         	//分页
-                        	$currUrl = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+                        	$currUrl = ($request->isSecure() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 							parse_str($_SERVER['QUERY_STRING'], $parseUrl);
 							unset($parseUrl['page']);
                         	$query = $currUrl.'?'.http_build_query($parseUrl);

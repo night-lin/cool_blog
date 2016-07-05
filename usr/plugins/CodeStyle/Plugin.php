@@ -44,6 +44,12 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
         $name = new Typecho_Widget_Helper_Form_Element_Select('code_style', $styles, 'segmentfault.css', _t('选择你的代码风格'));
         $form->addInput($name->addRule('enum', _t('必须选择配色样式'), $styles));
 
+        $jq_import = new Typecho_Widget_Helper_Form_Element_Radio('jq_import', array(
+            0   =>  _t('不引入'),
+            1   =>  _t('引入')
+        ), 1, _t('是否引入jQuery'), _t('此插件需要jQuery，如已有选择不引入避免引入多余jQuery'));
+        $form->addInput($jq_import->addRule('enum', _t('必须选择一个模式'), array(0, 1)));
+
     }
 
     /**
@@ -80,9 +86,11 @@ class CodeStyle_Plugin implements Typecho_Plugin_Interface {
      *@return void
      */
     public static function footer() {
+        if (Helper::options()->plugin('CodeStyle')->jq_import) {
+            echo '<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>';
+        }
         $jsUrl = Helper::options()->pluginUrl . '/CodeStyle/markdown/highlight.pack.js';
         echo <<<HTML
-            <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
             <script type="text/javascript" src="{$jsUrl}"></script>
             <script type="text/javascript">
                 hljs.initHighlightingOnLoad();
