@@ -153,6 +153,9 @@
     font-size: 14px;
     text-align: center;
 }
+.article-content > p a {
+    color:#3354aa;
+}
 
 /* 文章中 查看更多 链接 */
 
@@ -160,7 +163,7 @@
     text-align: center;
 }
 .more a {
-    color: #fff;
+    color: #fff !important;
     font-size: 12px;
     padding: 5px 10px;
     border-radius: 5px;
