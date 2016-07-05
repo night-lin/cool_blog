@@ -68,6 +68,7 @@ img.avatar {
 
 .article-list .main p {
     margin: 10px 0px;
+    word-wrap: break-word;
 }
 
 /* 布局 */
