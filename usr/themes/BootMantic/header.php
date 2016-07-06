@@ -65,6 +65,7 @@
 </div>
 
 <div class="navbar">
+       
     <div class="container">
         <ul class="nav">
             <li><a<?php if($this->is('index')): ?> class="active"<?php endif; ?> href="<?php $this->options->siteUrl(); ?>"><?php _e('首页'); ?></a></li>
@@ -88,6 +89,22 @@
                 <?php endif; ?>
             </ul>
         </div>
+    </div>
+     <div class="container-fluid">
+          <a class="btn btn-navbar" id="btn-col" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                <li><a<?php if($this->is('index')): ?> class="active"<?php endif; ?> href="<?php $this->options->siteUrl(); ?>"><?php _e('首页'); ?></a></li>
+                <?php $this->widget('Widget_Contents_Page_List')->to($pages); ?>
+                <?php while($pages->next()): ?>
+                <li><a<?php if($this->is('page', $pages->slug)): ?> class="active"<?php endif; ?> href="<?php $pages->permalink(); ?>" title="<?php $pages->title(); ?>"><?php $pages->title(); ?></a></li>
+                <?php endwhile; ?>
+            </ul>    
+          </div><!--/.nav-collapse -->
     </div>
 </div>
   

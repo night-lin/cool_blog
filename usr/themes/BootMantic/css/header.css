@@ -103,19 +103,89 @@
 .navbar .search-form .search-input:focus {
     outline: none;
 }
+/*导航响应式部分*/
+.btn-navbar .icon-bar + .icon-bar {
+    margin-top: 3px;
+}
+.btn-navbar .icon-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #f5f5f5;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+}
+#btn-col {
+    margin-top: -30px;
+     border-radius: 4px;
+    display: none;
+    float: right;
+    padding: 7px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #2c2c2c;
+    background-image: -moz-linear-gradient(top, #333333, #222222);
+    background-image: -ms-linear-gradient(top, #333333, #222222);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#333333), to(#222222));
+    background-image: -webkit-linear-gradient(top, #333333, #222222);
+    background-image: -o-linear-gradient(top, #333333, #222222);
+    background-image: linear-gradient(top, #333333, #222222);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#333333', endColorstr='#222222', GradientType=0);
+    border-color: #222222 #222222 #000000;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.075);
+}
+ .nav-collapse{
+    display: none;
 
+}
+
+#btn-col+.nav-collapse li{
+    display: block;
+}
+.container-fluid{
+    margin-right: 5%;
+    margin-top: 5px;
+
+}
 @media (max-width: 768px) {
-    .navbar .nav-right .search-form {
-        display: none;
+    .navbar{
+        min-height: 40px;
+        height: auto;
     }
-}
-@media (max-width: 550px) {
-    .navbar .nav-right {
+     .navbar .container .nav{
         display: none;
+
     }
+    .nav{width: 100%;}
+    .nav li{border-radius: 3px;
+    margin-top: 2px;}
+    .highlight{
+        background-color:#323232;
+    }
+
+    #btn-col{display: block;}
 }
-@media (max-width: 300px) {
-    .navbar .nav {
+@media(min-width: 768px){
+    #btn-col+.nav-collapse{
         display: none;
     }
 }
