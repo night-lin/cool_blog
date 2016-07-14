@@ -46,6 +46,7 @@
 	})();
 </script>
 <!-- 多说公共JS代码 end -->
+<script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 <?php $this->footer(); ?>
 </body>
 </html>
