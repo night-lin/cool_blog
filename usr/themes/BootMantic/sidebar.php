@@ -25,8 +25,7 @@
         </div>
     </section>
     <?php endif; ?>
-
-    <div class="fixsidebar"> 
+    
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowFriend', $this->options->sidebarBlock)): ?>
     <section class="block friend-list">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label">友情链接</p>
@@ -36,6 +35,7 @@
     </section>
     <?php endif; ?>
 
+    <div class="fixsidebar">
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowArchive', $this->options->sidebarBlock)): ?>
     <section class="block">
         <p class="ui <?php $this->options->labelColor() ?> ribbon label"><?php _e('归档'); ?></p>
