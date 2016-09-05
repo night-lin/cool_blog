@@ -278,7 +278,8 @@ class CommonMark_HyperDown
                     )) {
                     return $self->makeHolder($matches[0]);
                 } else {
-                    return htmlspecialchars($matches[0]);
+                    //return htmlspecialchars($matches[0]);
+                    return $matches[0];
                 }
             },
             $text
