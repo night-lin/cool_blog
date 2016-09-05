@@ -88,3 +88,34 @@ $(document).ready(function($) {
         });    
     }
 });
+
+
+$(function(){
+     highLight();
+    //面包屑导航展开
+    $("#btn-col").click(function(){
+        $(".nav-collapse").toggle();
+
+        //alert("11");
+    });
+     $(window).resize(function(){
+         if($(window).width()>=768)
+        $(".nav-collapse").css("display","none");
+      highLight();
+     });
+       //高亮显示
+     function highLight(){
+      if($(window).width()<=768)
+           {
+             $(".container-fluid .nav li").hover(function(){
+                    $(this).addClass("highlight");
+             },function(){
+                    $(this).removeClass("highlight");
+         });
+       }
+     };
+ 
+   
+});
+    
+

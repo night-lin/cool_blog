@@ -1,0 +1,3 @@
+[submodule "usr/themes/Greenthemes"]
+	path = usr/themes/Greenthemes
+	url = https://github.com/night-lin/blog_themes.git

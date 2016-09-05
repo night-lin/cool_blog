@@ -11,7 +11,22 @@
         </form>
     </section>
     <?php endif; ?> 
-<?php endif; ?> 
+<?php endif; ?>
+    <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentPosts', $this->options->sidebarBlock)): ?>
+        <section class="widget">
+            <h3 class="widget-title"><?php _e('最新文章'); ?></h3>
+            <ul class="widget-list">
+                <?php $this->widget('Widget_Contents_Post_Recent','pageSize=10')->parse('<li><a href="{permalink}">{title}</a></li>'); ?>
+            </ul>
+        </section>
+    <?php endif; ?>
+
+    <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentComments', $this->options->sidebarBlock)): ?>
+        <section class="widget">
+            <h3 class="widget-title"><?php _e('最新评论'); ?></h3>
+            <ul class="ds-recent-comments widget-list" data-num-items="6" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="1" data-excerpt-length="70"></ul>
+        </section>
+    <?php endif; ?>
 
     <?php if (!empty($this->options->sidebarBlock) && in_array('ShowCategory', $this->options->sidebarBlock)): ?>
         <section class="widget widget-category type-post">
@@ -26,30 +41,16 @@
         </section>
     <?php endif; ?>
 
-    <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentComments', $this->options->sidebarBlock)): ?>
-        <section class="widget">
-            <h3 class="widget-title"><?php _e('最新评论'); ?></h3>
-            <ul class="ds-recent-comments widget-list" data-num-items="6" data-show-avatars="0" data-show-time="0" data-show-title="0" data-show-admin="1" data-excerpt-length="70"></ul>
-        </section>
-    <?php endif; ?>
-   <div class="fixsidebar"> 
+   <div class="fixsidebar">
 <?php if(!is_mobile()) :?>
 
- <?php if (!empty($this->options->sidebarBlock) && in_array('ShowRecentPosts', $this->options->sidebarBlock)): ?>
-    <section class="widget">
-        <h3 class="widget-title"><?php _e('最新文章'); ?></h3>
-        <ul class="widget-list">
-            <?php $this->widget('Widget_Contents_Post_Recent','pageSize=5')
-            ->parse('<li><a href="{permalink}">{title}</a></li>'); ?>
-        </ul>
-    </section>
-    <?php endif; ?>
+
 
   <?php if (!empty($this->options->sidebarBlock) && in_array('ShowArchive', $this->options->sidebarBlock)): ?>
     <section class="widget">
         <h3 class="widget-title"><?php _e('归档'); ?></h3>
         <ul class="widget-list">
-            <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=F Y')
+            <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=Y 年 m 月')
             ->parse('<li><a href="{permalink}">{date}</a></li>'); ?>
         </ul>
     </section>
@@ -63,7 +64,13 @@
         </div>
     </section>
      <?php endif; ?>
-<?php endif; ?>   
+    <section class="widget">
+        <h3 class="widget-title"><?php _e('友情链接'); ?></h3>
+        <ul class="widget-list">
+            <?php Links_Plugin::output("<li><a class=\"item\" href=\"{url}\" title=\"{title}\" target=\"_blank\"><p class=\"header\">{name}</p><p>{description}</p></a></li>\n", 10); ?>
+        </ul>
+    </section>
+<?php endif; ?>
     <!-- 只在首页显示 -->
 
 </div>
